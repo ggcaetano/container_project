@@ -11,17 +11,19 @@ jobs:
   test:
     environment: test
     runs-on: ubuntu-latest
-    container: 
-      image: node:16 # we use this syntax when there is further details we want to inform for the container, such as environment variables.
+    # container: 
+      # image: node:16 # we use this syntax when there is further details we want to inform for the container, such as environment variables.
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb
-      MONGODB_CLUSTER_ADDRESS: mongodb #if the job runs on a container, it is easy to communicate with Services.
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
       PORT: 8080
     services:
       mongodb: #this is a label name, it can be whatever we want
         image: mongo # services always run on containers, so an image is always necessary
+        ports:
+          - 27017:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example
